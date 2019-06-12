@@ -1,0 +1,51 @@
+<html>
+<head>
+	<title>AZORult</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/menu.css">
+	<script src="js/snippets.js"></script>
+	<script type="text/javascript" src="js/base64.js"></script>
+	<meta charset="utf-8">
+	
+	<script type="text/javascript">
+	function sendPost(params) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+           // alert(this.responseText);
+        }
+    }
+    xhr.send("csrf_token=%csrf_token%&"+params);
+};
+	
+	</script>
+</head>
+<body>
+<div class="page-all">
+	<div class="page-header">
+		<div class="page-header-logo">
+		
+		</div>	
+		
+	</div>
+	
+	<div class="page-content">
+		<div class="page-left-bar">
+			%MENU%
+		</div>
+	
+	
+	
+		<div class="page-data">
+
+		%PADE_DATA%	
+
+		</div>	
+		
+	</div>
+</div>
+
+ </body> 
+</html>

@@ -1,0 +1,82 @@
+<div class="info-text1">
+<center>SERVER INFO</center>
+<H3>Panel version: 3.2</H3>
+<H3>PHP Version: %phpversion%</H3>
+
+<H4>"files" folder writable: %filesw%</H4>
+<H4>"config.json" writable: %configw%</H4>
+<H4>"links.txt" writable: %linksw%</H4>
+   <caption>Basic settings</caption>
+  <table  class="stat-table" id="cfgTable">
+
+   <tr>
+    <th>Variable</th>
+    <th>Value</th>
+   </tr>
+	<tr>	<td>post_max_size</td><td>%post_max_size%</td> </tr>
+	<tr>	<td>upload_max_filesize</td><td>%upload_max_filesize%</td></tr>
+	<tr>	<td>max_input_time</td><td>%max_input_time%</td></tr>
+	<tr>	<td>max_execution_time</td><td>%max_execution_time%</td></tr>
+	<tr>	<td>memory_limit</td><td>%memory_limit%</td></tr>
+	<tr>	<td>error_log</td><td>%error_log%</td></tr> 
+  </table>
+  
+<br><br><br> 
+<caption>Functions and modules</caption>   
+<table  class="stat-table" id="cfgTable">
+   
+   <tr>
+    <th>Name</th>
+    <th>Value</th>
+   </tr>
+	<tr>	<td>iconv</td><td>%iconv%</td> </tr>
+	<tr>	<td>JSON</td><td>%jsonmodule%</td> </tr>
+	
+ </table>
+
+<br><br><br> 
+<div class="spoiler">
+
+				<!--* Добавлен tabindex="-1" для снятия фокуса при переходе по "tab" -->
+				<input style="width:360px;height:45px;" type="checkbox" tabindex="-1" >
+					 <div class="box">
+						 <span class=close>Hide</span>
+						 <span class=open>Show php.ini</span>
+						 <blockquote class="Untext">
+							%phpini%
+							
+						 </blockquote>
+					 </div>
+					 
+					 
+					 
+
+ </div>
+ 
+ 
+
+<div class="spoiler">
+
+				<!--* Добавлен tabindex="-1" для снятия фокуса при переходе по "tab" -->
+				<input style="width:360px;height:45px;" type="checkbox" tabindex="-1" >
+					 <div class="box">
+						 <span class=close>Hide</span>
+						 <span class=open>Show phpinfo</span>
+						 <blockquote class="Untext">
+							 <iframe src="phpinfo.php" align="center" width="100%" height = "800">
+							Ваш браузер не поддерживает плавающие фреймы!
+						</iframe>
+							
+						 </blockquote>
+					 </div>
+					 
+					 
+					 
+
+ </div>
+ 
+ 
+
+
+
+			

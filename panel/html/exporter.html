@@ -1,0 +1,20 @@
+<div class="info-text1">
+<center>Exporter</center>
+
+
+
+<form method="POST">
+	<input type="radio" name="export_type" value="0"> Passwords list<Br>
+	<input type="radio" name="export_type" value="1"> Logins list<Br>
+	<input type="radio" name="export_type" value="2"> url@login:passwords<Br>
+	<input type="radio" name="export_type" value="3"> login:passwords<Br>
+	<input type="radio" name="export_type" value="4"> SOFT HOST USER PASS<Br>
+	<input type="hidden" name="csrf_token" value="%csrf_token%">	
+	<input type="submit" value="Export" class="sbutton">
+</form>
+
+<h3>Output: </h3>
+<textarea id = "textarea1" wrap="soft" rows="40" style="width: 100%" name="data">%exporter_data%</textarea>
+
+
+			
